@@ -33,6 +33,10 @@ components:
           type: string
           description: License number of the car
           example: LA1234
+        Rating:
+          type: string
+          description: Driver Rating
+          example: 4.9 stars
 
 security:
   - basicAuth: []

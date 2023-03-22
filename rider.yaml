@@ -21,18 +21,14 @@ components:
           type: string
           description: Rider name
           example: Nihil
-        seats:
-          type: integer
-          description: Number of available seats in the car
-          example: 4
-        CarName:
+        Address:
           type: string
-          description: Name of the car
-          example: Toyota
-        License:
+          description: Address of the rider
+          example: 252 Aspinwall avenue apt 3
+        Rating:
           type: string
-          description: License number of the car
-          example: LA1234
+          description: Rider Rating
+          example: 4.9 stars
 
 security:
   - basicAuth: []
