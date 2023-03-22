@@ -55,7 +55,24 @@ Alternately if strict cancellation policies are in place or if the cancellation 
 <li> Implementing the API: Once the API has been designed, it's time to start implementing it. This involves writing the server-side code that will handle requests and responses from the client.</li>
 <li> Development of the application: Once the API is in place, it's time to develop the application itself. This involves creating the front-end and the back-end of the application. </li>
 <li> Testing and debugging: Once the application has been built, it's important to test and debug it to ensure that it works as intended. This could involve manual testing, automated testing, or a combination of both. </li>
+<p>	   
+	    <h2> API resources </h2>
+	     <h3>Google Maps API</h3>
+	    This API can be used to obtain real-time navigation data and route optimization, as well as to generate a map of the carpool route.
 
+<h3> RideShare API</h3>
+	This API can be used to search for potential carpoolers and display information about their route and availability.
+
+<h3> wilio API </h3>
+	This API can be used to send notifications to users about carpool updates and confirmations.
+
+<h3> Stripe API </h3>
+	This API can be used to securely process and accept payments from users.
+
+<h3> Braintree API </h3>
+	This API can be used to securely process and accept payments from users.
+ </p>
+	  
 <h2> User specifications </h2>
 <p> Providing a list of the information that users must provide in order to create an account, including their name, email address, phone number, and password.
 Include the requirements for multi-factor authentication, strong passwords, and email confirmation when describing the authentication and permission standards for user accounts. Develop tools that enable users to update their account details and manage account options, such as notification preferences and password resets. </p>
