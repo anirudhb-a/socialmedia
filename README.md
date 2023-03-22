@@ -201,11 +201,11 @@ Challenges: If strict cancellation policies are in place or if the cancellation 
 <li>Annoyance with program user interfaces or customer service when problems occur.</li>
 
 <h1>Logo for our application</h1>
-![Carpooling logo](https://user-images.githubusercontent.com/114561628/227025582-21a79d78-f437-40d0-bc9e-33e6d9fdca3a.jpg)
+
 
 
 
 
     
   </body>
-  
+  ![Carpooling logo](https://user-images.githubusercontent.com/114561628/227025582-21a79d78-f437-40d0-bc9e-33e6d9fdca3a.jpg)
