@@ -23,4 +23,4 @@
       To install the app, simply clone the repository and install the necessary dependencies
     </footer>
   </body>
-  </html>![ride-sharing-banner](https://user-images.githubusercontent.com/113729641/226832596-eb937311-64ff-43a5-b7a0-135920d59bed.png)
+  
