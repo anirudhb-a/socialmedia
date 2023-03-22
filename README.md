@@ -200,6 +200,8 @@ Challenges: If strict cancellation policies are in place or if the cancellation 
 <li>During his ride, he had unpleasant or unsafe encounters as a result of the driver's poor choice.</li>
 <li>Annoyance with program user interfaces or customer service when problems occur.</li>
 
+<h1>Logo for our application</h1>
+![depositphotos_203135430-stock-illustration-illustration-carpooling-icon-white-background](https://user-images.githubusercontent.com/114561628/227025396-37e7d112-1d77-4141-a388-b891564dc6b1.jpg)
 
 
 
