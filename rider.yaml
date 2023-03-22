@@ -156,4 +156,4 @@ paths:
           content:
             application/json:
               example:
-                message: Driver already exists
+                message: Rider already exists
