@@ -30,7 +30,9 @@
    <p> As a commuter who frequently drives to work alone, I want to be able to find other commuters in my area who are traveling to the same location, so that I can save money on gas, reduce my carbon footprint, and have some company on my commute. In the car pooling application, I want to be able to specify my origin and destination, as well as my preferred departure time, so that I can find other commuters who are traveling on a similar route and schedule. I also want to be able to see the profiles of potential carpool partners, including their name, photo, and rating from other users, so that I can feel comfortable sharing a ride with them. Once I find a carpool partner, I want to be able to message them within the app to coordinate details such as pick-up location and any other specific requirements or preferences we may have. Finally, I want the app to have a rating and feedback system, so that I can rate my carpool partner and provide feedback on the ride, to help other users in the future make an informed decision when choosing a carpool partner. 
 
  <h2> Driver </h2> 
-     
+As a driver who frequently drives to specific location , I want to be able to decide the rider who I take along , after reviewing their personal information. I want to give feedback on the various riders who I take along . I want to set the route I take and the date and time of the route . I want to decide the car I use and number of seats of available. I want to see the fare for all the passengers I take along. I want to see history of specific riders for a window of 15 days prior to the drive. I want to have an option to decline or ignore a specific rider
+
+
  
  <h2> Rider </h2> 
 	As a rider, I want to be able to cancel a ride if my plans change and receive a refund if applicable, so that I can have flexibility in my travel plans.
@@ -40,7 +42,9 @@ Alternately if strict cancellation policies are in place or if the cancellation 
 
 
       
-  <h2> Admin </h2> 
+  <h2> Admin </h2>
+
+As a System Admin, I want to be able to add new drivers to the system so they can start providing rides to customers as an admin. I want to be able to assess driver applications as an admin and pick and choose to accept or reject them based on the applicants' driving records, the state of their vehicles, and other relevant factors. I want to be able to control how drivers and passengers manage their carpooling schedules, including the ability to change or cancel rides as needed. I want to be able to keep an eye on the carpooling activity on the platform, including how many rides are taken, how much money is made, and whether there are any problems or complaints. The goal is to have view with complete access to the system inorder to see the total earnings rides, total number of customers and traffic that the application is getting.
    
       
  <h1> ---  Milestones  --- </h1>
