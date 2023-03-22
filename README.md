@@ -86,6 +86,119 @@ Deciding what payment methods, such as credit cards, PayPal, or other payment me
 Defining the steps involved in handling payments, such as authorization, capture, and settlement.
 </p>
 
+<h2>User Personas</h2>
+<li>1.As a rider, I want to be able to cancel a ride if my plans change and receive a refund if applicable, so that I can have flexibility in my travel plans.</li>
+<li>Name: Aman Malawade </li>
+<li>Age:22</li>
+<li>Occupation: Student</li>
+<p>Description: Aman regularly uses ride-sharing services to commute to college campus.He is a student, his timetable is sporadic. He requires the freedom to change his mind and, if necessary, get a refund when he cancels his ride. Aman also values a straightforward cancellation policy that won't put an excessive strain on his expenses.</p>
+<li>Goal: To be able to quickly change his  travel arrangements by being able to cancel a ride and get a refund if necessary.
+Challenges: If strict cancellation policies are in place or if the cancellation procedure is complicated or time-consuming, customers may find it difficult to cancel a ride.</li>
+<li>Pain Points: He might lose money if he is unable to cancel a trip or get a refund, which would affect his  finances.</li>
+<br>
+<br>
+
+<li>Name: Pooja Konde</li>
+<li>Age: 26</li>
+<li>Occupation: UI/UX Designer</li>
+<li>Description: While Pooja typically takes public transportation to work, she sometimes uses ride-sharing services to travel further distances or to go to events  in other areas of the city. She prefers flexible travel choices that are convenient. </li>
+<li>Goals:</li>
+<li>To be adaptable with her transport arrangements</li>
+<li>Having the option to reschedule a transport if her plans alter and to get a reimbursement, if necessary</li>
+<li>Challenges:</li>
+<li>A meager transportation allowance</li>
+<li>Frequently makes last-minute arrangements, which increases the likelihood of cancellations</li>
+<li>Favors dependability and transparency in ride-sharing programs</li>
+<li>Pain points:</li>
+<li>Having trouble getting a refund after canceling a trip</li>
+<li>Lack of transparency regarding refund procedures</li>
+<li>Inconvenience and additional expenses </li>
+<br>
+<br>
+
+<li>2.	As a user of the carpooling app, I want to be able to access customer support in case I have any issues with my ride or need assistance with the app.</li>
+
+<li>Name : Harry Styles</li>
+<li>Age: 37</li>
+<li>Occupation: Sales Manager</li>
+<li> Description:Harry commutes to work every day using carpooling applications from his city home. He needs to be able to depend on his transportation options because he is a busy professional with a demanding schedule. He values convenience and effectiveness and views apps with user-friendly interfaces.</li>
+
+
+<li>Goals:</li>
+<li>To be able to swiftly and easily contact customer service if he had any problems with his ride or the app.</li>
+<li>So that he can arrive at work on time, to have his problems handled quickly and effectively.</li>
+<li>To have the peace of mind that the app offers dependable customer support whenever he requires it.</li>
+<li>Challenges:</li>
+<li>Lack of time to handle any difficulties or problems that might emerge during his commute.</li>
+<li>Using a carpooling program every day to get to work.</li>
+<li>Frustration when problems occur that complicate or prolong his journey.</li>
+<li>Pain Points:</li>
+<li>Long wait periods or challenges contacting customer service when necessary.</li>
+<li>Unresolved issues that interfere with his plans or create delays.</li>
+<li>Lack of assurance and faith in the app's ability to deliver dependable customer assistance.</li>
+
+<li>User Persona 2:</li>
+<li>Name : Kaushiki Ambi</li>
+<li>Age: 24</li>
+<li>Occupation: Student</li>
+<li>Description:Kaushiki is a graduate student who occasionally uses carpooling apps to travel to campus or complete chores in the neighborhood. She has a limited income and requires accessible transportation. She expects openness and truthfulness from the apps she utilizes.</li>
+
+<li>Goals:</li>
+<li>To have access to customer service in the event that she has any problems with her ride or the program.</li>
+<li>To have faith that the program is open and honest about its policies.</li>
+<li>To have her problems dealt with fairly and quickly.</li>
+<li>Challenges:</li>
+<li>Limited funds and the need to locate reasonably priced transportation choices.</li>
+<li>Limited knowledge of carpooling apps' rules and procedures. Limited experience using them.</li>
+<li>No opportunity to address problems that might come up on the way to work.</li>
+<li>Pain Points:</li>
+<li>Policies and processes that are opaque or unclear and cause confusion or annoyance.</li>
+<li>A challenge in contacting customer service or lengthy wait periods.</li>
+<li>Unresolved problems that increase tension or burden you financially.</li>
+
+<li>3.  As a rider, I want to be able to see the ratings and feedback of potential drivers before booking a ride so that I can choose a safe and reliable ride.</li>
+
+<li>Name : Kartika Aryan </li>
+<li>Age: 27</li>
+<li>Occupation: Marketing Manager</li>
+<li>Description:Kartika is a young professional who regularly commutes to work and attends social events using ride-hailing apps. She favors apps that offer clear information about their drivers because she values safety and dependability.</li>
+
+<li>Goals:</li>
+<li>To have access to prospective drivers' reviews and ratings before reserving a ride.</li>
+<li>To feel secure in the driver's dependability and safety.</li>
+<li>To steer clear of uncomfortable or dangerous situations during her journey.</li>
+<li>Challenges:</li>
+<li>Worries when using ride-hailing applications regarding reliability and safety.</li>
+<li>Limited opportunity to compare ratings and reviews of potential drivers.</li>
+<li>Frustration when problems with her ride occur that could have been prevented with a better choice of driver.</li>
+<li>Paint Points:</li>
+<li>Transparency issues or insufficient data on possible drivers.</li>
+<li>During her ride, she had unpleasant or unsafe encounters because the driver was not suitable.</li>
+<li>Having trouble contacting customer service or fixing problems when they occur.</li>
+
+
+<li>User Persona 2</li>
+<li>Name : Sid Janwale </li>
+<li>Age: 36</li>
+<li>Occupation: Accountant</li>
+<li> Description: Sid is a family man who occasionally uses ride-hailing apps to perform errands or attend family gatherings. He places a high value on security and dependability and wants to be certain that the chauffeur he chooses is reliable and responsible.</li>
+
+<li>Goals:</li>
+<li>To have access to prospective drivers' reviews and ratings before reserving a ride.</li>
+<li>To feel secure in the driver's safety and responsibility.</li>
+<li>To stay away from uncomfortable or dangerous situations while riding.</li>
+<li>Challenges:</li>
+<li>Using ride-hailing apps raises questions about reliability and safety, especially when going with family.</li>
+<li>Limited opportunity to compare ratings and reviews of potential drivers.</li>
+<li>Getting the information he requires or having trouble navigating app interfaces.</li>
+<li>Paint Points:</li>
+<li>Transparency issues or insufficient data on possible drivers.</li>
+<li>During his ride, he had unpleasant or unsafe encounters as a result of the driver's poor choice.</li>
+<li>Annoyance with program user interfaces or customer service when problems occur.</li>
+
+
+
+
     
   </body>
   
