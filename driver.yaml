@@ -151,3 +151,9 @@ paths:
             application/json:
               example:
                 message: Invalid request body
+        '409':
+          description: Duplicate Record
+          content:
+            application/json:
+              example:
+                message: Driver already exists
