@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Car pooling Api
+  description: Car pooling Api to fetch the Rider details
+  version: 1.0.0
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    Rider:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Rider identifier
+          example: 1234567
+        name:
+          type: string
+          description: Rider name
+          example: Nihil
+        seats:
+          type: integer
+          description: Number of available seats in the car
+          example: 4
+        CarName:
+          type: string
+          description: Name of the car
+          example: Toyota
+        License:
+          type: string
+          description: License number of the car
+          example: LA1234
+
+security:
+  - basicAuth: []
+
+paths:
+  /Rider/{Rider_id}:
+    get:
+      operationId: retrieveRider
+      parameters:
+        - name: Rider_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: returns single Rider details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rider'
+        "401":
+          description: authentication error
+          content:
+            application/json:
+              schema:
+                type: object
+
+        "404":
+          description: Rider not found
+          content:
+            application/json:
+              example:
+                message: Rider not found
+
+    put:
+      operationId: updateRider
+      parameters:
+        - name: Rider_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rider'
+      responses:
+        "200":
+          description: Rider updated successfully
+          content:
+            application/json:
+              example:
+                message: Rider updated successfully
+        "401":
+          description: authentication error
+          content:
+            application/json:
+              schema:
+                type: object
+                
+        "404":
+          description: Rider not found
+          content:
+            application/json:
+              example:
+                message: Rider not found
+                
+    delete:
+      operationId: deleteRider
+      parameters:
+          - name: Rider_id
+            in: path
+            required: true
+            schema:
+              type: integer
+      responses:
+        "204":
+          description: Rider deleted successfully
+        "401":
+          description: authentication error
+          content:
+            application/json:
+              schema:
+                type: object
+        "404":
+          description: Rider not found
+          content:
+            application/json:
+              example:
+                message: Rider not found
+
+  /Rider/:
+    post:
+      summary: Add a Rider
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rider'
+      responses:
+        '201':
+          description: Rider created successfully
+          content:
+            application/json:
+              example:
+                message: Rider created successfully
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                message: Invalid request body

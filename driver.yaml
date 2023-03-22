@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Car pooling Api
+  description: Car pooling Api to fetch the driver details
+  version: 1.0.0
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    driver:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Driver identifier
+          example: 1234567
+        name:
+          type: string
+          description: Driver name
+          example: Nihil
+        seats:
+          type: integer
+          description: Number of available seats in the car
+          example: 4
+        CarName:
+          type: string
+          description: Name of the car
+          example: Toyota
+        License:
+          type: string
+          description: License number of the car
+          example: LA1234
+
+security:
+  - basicAuth: []
+
+paths:
+  /driver/{driver_id}:
+    get:
+      operationId: retrievedriver
+      parameters:
+        - name: driver_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: returns single driver details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/driver'
+        "401":
+          description: authentication error
+          content:
+            application/json:
+              schema:
+                type: object
+
+        "404":
+          description: Driver not found
+          content:
+            application/json:
+              example:
+                message: Driver not found
+
+    put:
+      operationId: updatedriver
+      parameters:
+        - name: driver_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/driver'
+      responses:
+        "200":
+          description: Driver updated successfully
+          content:
+            application/json:
+              example:
+                message: Driver updated successfully
+        "401":
+          description: authentication error
+          content:
+            application/json:
+              schema:
+                type: object
+                
+        "404":
+          description: Driver not found
+          content:
+            application/json:
+              example:
+                message: Driver not found
+                
+    delete:
+      operationId: deletedriver
+      parameters:
+          - name: driver_id
+            in: path
+            required: true
+            schema:
+              type: integer
+      responses:
+        "204":
+          description: driver deleted successfully
+        "401":
+          description: authentication error
+          content:
+            application/json:
+              schema:
+                type: object
+        "404":
+          description: Driver not found
+          content:
+            application/json:
+              example:
+                message: Driver not found
+
+  /driver/:
+    post:
+      summary: Add a driver
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/driver'
+      responses:
+        '201':
+          description: Driver created successfully
+          content:
+            application/json:
+              example:
+                message: Driver created successfully
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                message: Invalid request body
