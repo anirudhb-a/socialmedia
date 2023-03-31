@@ -1,6 +1,6 @@
 <html>
  <head> 
-   <h1 align="center">Car Pooling Application</h1>
+   <h1 align="acenter">Car Pooling Application</h1>
   </head>
   
   <body>
