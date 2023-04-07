@@ -1,10 +1,10 @@
 //Importing modules
 import  express  from "express";
 import mongoose from "mongoose";
-import models from "./models/index.js";
+import models from "../carpooling-app/model/index.js";
 import cors from 'cors';
 
-import route from './routes/index.js'
+import route from '../carpooling-app/routes/index.js'
 
 
 

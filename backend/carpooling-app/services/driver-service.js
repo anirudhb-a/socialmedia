@@ -18,10 +18,10 @@ export const removeDriver = async (id) =>{
 }
 
 //Creating update service which is called from controllers
-export const updateDriver = async (id, updatedDriver) =>{
+export const updateDetails = async (id, updatedDriver) =>{
     //return value of asyn func is promise
     //const reminderwithdate  = {...updatedReminder, lastModifiedDate: Date.now()}
-    const driverNew = {...updateDriver};
+    const driverNew = {...updatedDriver};
    const driver =  Driver.findByIdAndUpdate(id,driverNew,{new: true}).exec();
    return driver;
 }

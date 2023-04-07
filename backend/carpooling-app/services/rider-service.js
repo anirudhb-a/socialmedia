@@ -18,10 +18,10 @@ export const removeRider = async (id) =>{
 }
 
 //Creating update service which is called from controllers
-export const updateRider = async (id, updatedRider) =>{
+export const updateDetails = async (id, updatedrider) =>{
     //return value of asyn func is promise
     //const reminderwithdate  = {...updatedReminder, lastModifiedDate: Date.now()}
-    const riderNew = {...updateRider};
+    const riderNew = {...updatedrider};
    const rider =  Rider.findByIdAndUpdate(id,riderNew,{new: true}).exec();
    return rider;
 }

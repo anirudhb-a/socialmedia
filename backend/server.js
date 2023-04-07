@@ -1,5 +1,5 @@
 //Importing reminders.js
-import app from './app/carpooling.js';
+import app from './carpooling-app/carpooling.js';
 //creating the port
 const port = 9000;
 //starting the server value and listening

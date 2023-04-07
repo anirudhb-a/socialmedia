@@ -12,8 +12,8 @@ router.route('/')
 router.route('/:id')
    .get(driverController.find)
    .delete(driverController.deleteDriver)
-   .patch(driverController.updateDriver)
-   .put(driverController.updateDriver);
+   .patch(driverController.updatedriver)
+   .put(driverController.updatedriver);
 
 
   export default router;
