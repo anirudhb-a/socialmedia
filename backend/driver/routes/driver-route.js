@@ -1,5 +1,5 @@
 import express from "express";
-import * as driverController from '../controller/controller.js';
+import * as driverController from '../controller/driver-controller.js';
 
 const router = express.Router();
 
@@ -11,9 +11,9 @@ router.route('/')
 //route the paramterized methods with controller logic 
 router.route('/:id')
    .get(driverController.find)
-   .delete(driverController.deleteRider)
-   .patch(driverController.updateRider)
-   .put(driverController.updateRider);
+   .delete(driverController.deleteDriver)
+   .patch(driverController.updateDriver)
+   .put(driverController.updateDriver);
 
 
   export default router;
