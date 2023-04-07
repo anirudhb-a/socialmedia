@@ -30,3 +30,5 @@ const riderSchema = new mongoose.Schema({
 
 );
 const rider = mongoose.model('Rider',riderSchema);
+
+export default rider;

@@ -1,13 +1,13 @@
 //import * as reminderService from './../services/reminder-service.js';
-import {saveRider, getRider, removeRider, updateRider, searchRider} from '../services/rider-service.js';
+import {saveDriver, getDriver, removeDriver, updateDetails, searchDriver} from '../services/driver-service.js';
 //reminderService.save();
 
 //define the method for reminder creation
 export const post = async(request, response) =>{
     try{
-    const newRider = request.body;
-    const savedRider = await saveRider(newRider);
-   setSuccessfulResponse(savedRider, response);
+    const newDriver = request.body;
+    const savedDriver = await saveDriver(newDriver);
+   setSuccessfulResponse(savedDriver, response);
     } catch(err){
         setErrorResponse(err,response);
     }
@@ -17,11 +17,11 @@ export const post = async(request, response) =>{
 export const index= async(request, response) =>{
     try{
         const params = {};
-        const riders = await searchRider(params);
-        setSuccessfulResponse(riders,response);
+        const drivers = await searchDriver(params);
+        setSuccessfulResponse(drivers,response);
     } catch (err) {
         setErrorResponse(err,response);
-
+//jj
     }
 
 }
@@ -30,8 +30,8 @@ export const index= async(request, response) =>{
 export const find= async(request, response) =>{
     try{
         const id = request.params.id;
-        const rider = await getRider(id);
-        setSuccessfulResponse(rider,response);
+        const driver = await getDriver(id);
+        setSuccessfulResponse(driver,response);
     } catch (err) {
         setErrorResponse(err,response);
 
@@ -40,11 +40,11 @@ export const find= async(request, response) =>{
 }
 
 //define the method for reminder deletion
-export const deleteRider  = async(request, response) => {
+export const deleteDriver  = async(request, response) => {
 try{
     const id = request.params.id;
-    const rider = await removeRider(id);
-    setSuccessfulResponse(rider,response);
+    const driver = await removeDriver(id);
+    setSuccessfulResponse(driver,response);
 
 }catch(err){
     setErrorResponse(err,response);
@@ -52,13 +52,13 @@ try{
 }
 
 //define the method for reminder updation
-export const updateRider  = async(request, response) => {
+export const updatedriver  = async(request, response) => {
     try{
         const id = request.params.id;
         const body =  request.body;
-        const rider = await update(id,body);
+        const driver = await updateDetails(id,body);
         
-        setSuccessfulResponse(rider,response);
+        setSuccessfulResponse(driver,response);
     
     }catch(err){
         setErrorResponse(err,response);

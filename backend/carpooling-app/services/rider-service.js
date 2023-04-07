@@ -8,7 +8,7 @@ export const saveRider = async (newRider) =>{
 
 export const getRider = async (id) =>{
     //return value of asyn func is promise
-   const rider =  Rider.findById(id);
+   const rider =  Rider.findById(id).exec();
    return rider;
 }
 export const removeRider = async (id) =>{
@@ -17,13 +17,21 @@ export const removeRider = async (id) =>{
    return rider;
 }
 
-export const updateRider = async (id, updatedRider) =>{
+//Creating update service which is called from controllers
+export const updateDetails = async (id, updatedrider) =>{
     //return value of asyn func is promise
     //const reminderwithdate  = {...updatedReminder, lastModifiedDate: Date.now()}
-    const riderNew = {...updateRider};
+    const riderNew = {...updatedrider};
    const rider =  Rider.findByIdAndUpdate(id,riderNew,{new: true}).exec();
    return rider;
 }
+
+/* 
+export const updateRider = async (id, updatedCommuter) => {
+    const riderwithdate  = {...updateRider, lastUpdatedDate: Date.now()}
+    const rider = Rider.findByIdAndUpdate(id, riderwithdate, {new: true}).exec();
+    return rider;      
+} */
 
 export const searchRider = async (params) =>{
     //return value of asyn func is promise
