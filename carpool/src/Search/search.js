@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer , Autocomplete , useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
@@ -12,21 +12,29 @@ const center = {
 };
 
 const RiderFinder = () => {
+  const {isloaded} = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg",
+    libraries: ['places']
+  })
+
+  if (isloaded) {
+
+  }
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [pickUpTime,setpickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
 
   const onOriginChange = (event) => {
-    setOrigin(event.target.value);
+    setOrigin({ ...origin, [event.target.name]: event.target.value });
   }
 
   const onDestinationChange = (event) => {
-    setDestination(event.target.value);
+    setDestination({ ...destination, [event.target.name]: event.target.value });
   }
 
   const onPickUpTimeChange = (event) => {
-    setpickUpTime(event.target.value);
+    setpickUpTime({ ...pickUpTime, [event.target.name]: event.target.value });
   }
 
   const directionsCallback = (result) => {
@@ -38,6 +46,9 @@ const RiderFinder = () => {
   }
 
   const searchForRide = () => {
+    onPickUpTimeChange();
+    onDestinationChange();
+    onOriginChange();
     if (origin && destination && pickUpTime) {
       const directionsService = new window.google.maps.DirectionsService();
       directionsService.route(
@@ -53,27 +64,29 @@ const RiderFinder = () => {
 
   return (
     <div>
-      <div>
+        <div style={{ display: 'flex' }}>
         <label htmlFor="origin">Origin:</label> &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
-        <input id="origin" type="text" value={origin} onChange={onOriginChange} />
+      <Autocomplete>
+
+        <input id="origin" type="text" value={origin} name='Origin' /* onChange={onOriginChange} */ />
+
+      </Autocomplete>
       </div>
-      <div>
+     <div style={{ display: 'flex' }}>
         <label htmlFor="destination">Destination:</label>  &nbsp;  &nbsp;
-        
-        <input id="destination" type="text" value={destination} onChange={onDestinationChange} />
+        <Autocomplete>
+        <input id="destination" type="text" value={destination} name='Destination'/* onChange={onDestinationChange} */ />
+        </Autocomplete>
       </div>
       <br></br>
       <div>
         <label htmlFor="pickUpTime">Pick-up time:</label>  &nbsp;  &nbsp;
-        <input id="pickUpTime" type="datetime-local" value={pickUpTime} onChange={onPickUpTimeChange} />
+        <input id="pickUpTime" type="datetime-local" value={pickUpTime} name='time' /* onChange={onPickUpTimeChange} */ />
       </div>
       <br></br>
       <button onClick={searchForRide}>Search for ride</button>
       <br></br>
       <div style={containerStyle}>
-        <LoadScript
-          googleMapsApiKey="AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg"
-        >
             <br></br>
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -82,7 +95,6 @@ const RiderFinder = () => {
           >
             {directions && <DirectionsRenderer directions={directions} />}
           </GoogleMap>
-        </LoadScript>
       </div>
     </div>
   );
