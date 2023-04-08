@@ -1,29 +1,33 @@
 import mongoose from "mongoose";
 
 const riderSchema = new mongoose.Schema({
-    RiderName: {
+    /* RiderName: {
         type: String,
-        required: 'The title field is required.'
+       // required: 'The title field is required.'
     },
     RiderEmail: {
         type: String,
       //  required: 'The Details field is required.'
-    },
-   PickupLocation: {
+    }, */
+   //PickupLocation: {
+   //     type: String,
+      //  required: 'Starting Location is required.'
+   // },
+    Origin: {
         type: String,
-        required: 'Starting Location is required.'
+       // required: 'Starting Location is required.'
     },
     Destination: {
         type: String,
-        required: 'Destination is required.'
+        //required: 'Destination is required.'
     },
     PickUpTime: {
         type: Date,
-        default: Date.now()
+      //  default: Date.now()
     },
     SeatsNeeded:{
         type: Number,
-        required: 'Number of Seats is required.'
+        //required: 'Number of Seats is required.'
     },
 
 }, 

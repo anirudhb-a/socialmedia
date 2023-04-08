@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer , Autocomplete , useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
@@ -12,44 +12,66 @@ const center = {
 };
 
 const RiderFinder = () => {
-  const {isloaded} = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg",
-    libraries: ['places']
-  })
-
-  if (isloaded) {
-
-  }
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
-  const [pickUpTime,setpickUpTime] = useState('');
+  const [pickUpTime, setPickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
+  const [seats, setSeat] = useState('');
 
   const onOriginChange = (event) => {
-    setOrigin({ ...origin, [event.target.name]: event.target.value });
+    setOrigin(event.target.value);
   }
 
   const onDestinationChange = (event) => {
-    setDestination({ ...destination, [event.target.name]: event.target.value });
+    setDestination(event.target.value);
   }
 
   const onPickUpTimeChange = (event) => {
-    setpickUpTime({ ...pickUpTime, [event.target.name]: event.target.value });
+    setPickUpTime(event.target.value);
+  }
+
+  const onSeatChange = (event) => {
+    setSeat(event.target.value);
   }
 
   const directionsCallback = (result) => {
     if (result != null) {
       setDirections(result);
-      let dir = JSON.stringify(result);
-      console.log("directions : "+ dir);
+      console.log(result);
     }
   }
 
+  const sendRequestToDriver = async (rider) => {
+    // Replace with your own implementation to send the rider information to a driver
+    try{
+      const response  = await fetch('http://localhost:9000/riders/',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body : JSON.stringify({
+          origin: rider.origin,
+          destination: rider.destination,
+          pickUpTime: rider.pickUpTime,
+          seats: rider.seats,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      console.log('Sending rider info to driver:', {
+        origin: origin,
+        destination: destination,
+        pickUpTime: pickUpTime,
+        seats: seats,
+      });
+    }
+      catch (error) {
+        console.error(error);
+      }
+    }
+  
+  
+
   const searchForRide = () => {
-    onPickUpTimeChange();
-    onDestinationChange();
-    onOriginChange();
-    if (origin && destination && pickUpTime) {
+    if (origin && destination && pickUpTime && seats) {
       const directionsService = new window.google.maps.DirectionsService();
       directionsService.route(
         {
@@ -64,30 +86,32 @@ const RiderFinder = () => {
 
   return (
     <div>
-        <div style={{ display: 'flex' }}>
-        <label htmlFor="origin">Origin:</label> &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
-      <Autocomplete>
-
-        <input id="origin" type="text" value={origin} name='Origin' /* onChange={onOriginChange} */ />
-
-      </Autocomplete>
-      </div>
-     <div style={{ display: 'flex' }}>
-        <label htmlFor="destination">Destination:</label>  &nbsp;  &nbsp;
-        <Autocomplete>
-        <input id="destination" type="text" value={destination} name='Destination'/* onChange={onDestinationChange} */ />
-        </Autocomplete>
-      </div>
-      <br></br>
       <div>
-        <label htmlFor="pickUpTime">Pick-up time:</label>  &nbsp;  &nbsp;
-        <input id="pickUpTime" type="datetime-local" value={pickUpTime} name='time' /* onChange={onPickUpTimeChange} */ />
+        <label htmlFor="origin">Origin:</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <input id="origin" type="text" value={origin} onChange={onOriginChange} />
       </div>
+      <div>
+        <label htmlFor="destination">Destination:</label> &nbsp; &nbsp; &nbsp; 
+        <input id="destination" type="text" value={destination} onChange={onDestinationChange} />
+      </div>
+      <div>
+        <label htmlFor="pickUpTime">Pick-up time:</label>&nbsp; &nbsp; &nbsp; 
+        <input id="pickUpTime" type="datetime-local" value={pickUpTime} onChange={onPickUpTimeChange} />
+      </div>
+      
+      <label htmlFor='seats'>Seats Required:</label>&nbsp; &nbsp; &nbsp; 
+      <input id="seats" type="number" value={seats} onChange={onSeatChange}/>
       <br></br>
-      <button onClick={searchForRide}>Search for ride</button>
       <br></br>
+      <button onClick={searchForRide}>Search for ride</button>  <br></br>
+
+      <br></br>
+
+
       <div style={containerStyle}>
-            <br></br>
+        <LoadScript
+          googleMapsApiKey="AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg"
+        >
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
@@ -95,7 +119,11 @@ const RiderFinder = () => {
           >
             {directions && <DirectionsRenderer directions={directions} />}
           </GoogleMap>
+        </LoadScript>
       </div>
+      <br></br>
+
+<button onClick={sendRequestToDriver}>Request Driver</button>
     </div>
   );
 }
