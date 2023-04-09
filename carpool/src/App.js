@@ -1,6 +1,7 @@
 
 import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Routes ,Link } from 'react-router-dom';
+
 import Search from './Search/search.js';
 import Driver from './Driver/Driver.js';
 import DriverRide from './Driver/DriverCreateRide.js';
@@ -9,17 +10,18 @@ import './App.css';
 import ExampleComponent from './example.js';
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
+import Payment from './Payment/payment.js'
 
 function App() {
   return (
 
-    <Router>
+/*     <Router>
     <div className="App">
     <header className="App-header">
-    {/* <Search/> */}
+    {/* <Search/> }
     
-    {/* <Driver/> */}
-    </header>
+    {/* <Driver/> }
+   /*  </header>
     <DriverRide/>
     </div>
     <div>
@@ -32,7 +34,18 @@ function App() {
         <Route exact path="/Home" element={<HomePage/>} />
         <Route path="/about" element={<AboutPage/>} />
       </Routes>
-       </Router> 
+       </Router>  */ 
+       <div className="App">
+    <header className="App-header">
+
+      <Search/>
+    
+      <Driver/>
+      <Payment/>
+
+    </header>
+
+    </div>
        
  
   );
