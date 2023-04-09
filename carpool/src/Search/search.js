@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import React, { useState ,useRef } from 'react';
+import { useJsApiLoader ,GoogleMap, LoadScript, DirectionsService, DirectionsRenderer,Autocomplete } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
@@ -11,20 +11,36 @@ const center = {
   lng: -122.4194
 };
 
+
+
 const RiderFinder = () => {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [pickUpTime, setPickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
   const [seats, setSeat] = useState('');
+  /** @type React.MutableRefObject<HTMLInputElement>*/
+  const originRef = useRef();
+  /** @type React.MutableRefObject<HTMLInputElement>*/
+  const destinationRef = useRef();
+  const {isLoaded} = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg" 
+    , libraries: ['places']
+  }
+  )
+  
+  if(!isLoaded) {
+    return <div>loading......</div>;
+  }
 
-  const onOriginChange = (event) => {
-    setOrigin(event.target.value);
+
+/*   const onOriginChange = (event) => {
+    setOrigin(origin,[event.target.name] = event.target.value);
   }
 
   const onDestinationChange = (event) => {
-    setDestination(event.target.value);
-  }
+    //setDestination(event.target.value);
+  } */
 
   const onPickUpTimeChange = (event) => {
     setPickUpTime(event.target.value);
@@ -38,6 +54,8 @@ const RiderFinder = () => {
     if (result != null) {
       setDirections(result);
       console.log(result);
+      originRef.current.value = '';
+      destinationRef.current.value = '';
     }
   }
 
@@ -71,12 +89,12 @@ const RiderFinder = () => {
   
 
   const searchForRide = () => {
-    if (origin && destination && pickUpTime && seats) {
+    if (originRef.current.value && destinationRef.current.value && pickUpTime && seats) {
       const directionsService = new window.google.maps.DirectionsService();
       directionsService.route(
         {
-          origin: origin,
-          destination: destination,
+          origin: originRef.current.value,
+          destination: destinationRef.current.value,
           travelMode: 'DRIVING'
         },
         directionsCallback
@@ -88,11 +106,17 @@ const RiderFinder = () => {
     <div>
       <div>
         <label htmlFor="origin">Origin:</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <input id="origin" type="text" value={origin} onChange={onOriginChange} />
+        <Autocomplete>
+          <input id="origin" type="text" name= 'Origin' /* value={origin} /* onChange={onOriginChange} */ ref={originRef}/>
+        </Autocomplete>
+        
       </div>
       <div>
         <label htmlFor="destination">Destination:</label> &nbsp; &nbsp; &nbsp; 
-        <input id="destination" type="text" value={destination} onChange={onDestinationChange} />
+        <Autocomplete>
+        <input id="destination" type="text" name = 'Destination' /* value={destination} /* onChange={onDestinationChange} */ ref={destinationRef}/>
+        </Autocomplete>
+        
       </div>
       <div>
         <label htmlFor="pickUpTime">Pick-up time:</label>&nbsp; &nbsp; &nbsp; 
@@ -109,9 +133,9 @@ const RiderFinder = () => {
 
 
       <div style={containerStyle}>
-        <LoadScript
+{/*        <LoadScript
           googleMapsApiKey="AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg"
-        >
+        >  */}
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
@@ -119,7 +143,7 @@ const RiderFinder = () => {
           >
             {directions && <DirectionsRenderer directions={directions} />}
           </GoogleMap>
-        </LoadScript>
+{/*     </LoadScript>  */}
       </div>
       <br></br>
 
