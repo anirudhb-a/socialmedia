@@ -19,6 +19,7 @@ const RiderFinder = () => {
   const [pickUpTime, setPickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
   const [seats, setSeat] = useState('');
+<<<<<<< HEAD
   /** @type React.MutableRefObject<HTMLInputElement>*/
   const originRef = useRef();
   /** @type React.MutableRefObject<HTMLInputElement>*/
@@ -32,6 +33,9 @@ const RiderFinder = () => {
   if(!isLoaded) {
     return <div>loading......</div>;
   }
+=======
+  
+>>>>>>> 03161a378630726a594fa58726549bc2ab5c1390
 
 
 /*   const onOriginChange = (event) => {
