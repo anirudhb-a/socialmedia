@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const riderOrderSchema = new mongoose.Schema({
     riderOrderNumber: {
         type: String,
-        required: 'The title field is required.'
+        //required: 'The title field is required.'
     },
     DriverOrderNumber:{
         type: Number,
-        required: 'Number of Seats is required.'
+        //required: 'Number of Seats is required.'
     },
     RiderId: {
         type: String,
@@ -29,9 +29,13 @@ const riderOrderSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    Status:{
-        type: Number,
-        required: 'Number of Seats is required.'
+    DriverPostStatus:{
+        type: String,
+       // required: 'Number of Seats is required.'
+    },
+    CommuteStatus:{
+        type: String,
+       // required: 'Number of Seats is required.'
     },
     Cost:{
         type: Number,
