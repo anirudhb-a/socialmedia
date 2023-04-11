@@ -6,7 +6,7 @@ const Payment = ({ riderInfo }) => {
   const [paymentComplete, setPaymentComplete] = useState(false);
 
   const handleToken = async (token) => {
-    const response = await fetch('http://localhost:9000/payments/', {
+    const response = await fetch('http://localhost:9000/payment/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -16,6 +16,9 @@ const Payment = ({ riderInfo }) => {
     });
 
     const data = await response.json();
+
+    
+    
 
     if (data.success) {
       setPaymentComplete(true);
@@ -44,7 +47,7 @@ const Payment = ({ riderInfo }) => {
     <div>
       {!paymentComplete ? (
         <StripeCheckout
-          stripeKey="YOUR_STRIPE_PUBLIC_KEY"
+          stripeKey="pk_test_51MvOUrDD4QlicA8Ycj7WcHVavbqaxBPYtdeDh8SC5jwxPn7FbnJilIVpJNkgARfn87XrjoHnMBYMz22Gy6y2yITN00mABOwVyq"
           token={handleToken}
           amount={1000} // in cents
           name="Carpooling app"
