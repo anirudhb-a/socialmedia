@@ -1,14 +1,10 @@
-import React, { useState,useEffect } from 'react';
-<<<<<<< HEAD
+import React, { useState,useEffect , useRef } from 'react';
 import { Button , Input } from 'antd';
-=======
-
->>>>>>> 3f8f2d0283a9077c3eab067a927ac8527db458a8
+import { useJsApiLoader ,GoogleMap, LoadScript, DirectionsService, DirectionsRenderer,Autocomplete } from '@react-google-maps/api';
 
 
-
+const libraries = ['places'];
 const DriverRide = () => {
-<<<<<<< HEAD
   const [data, setData] = useState(
     {DriverOrderNumber: '',
       DriverId:'',
@@ -16,25 +12,35 @@ const DriverRide = () => {
       Destination: '',
       Status: 'Open',
       Seats: '',
-      Cost: ''
+      Cost: '',
+      OriginLatitude:'',
+      OriginLongitude:'',
+      DestinationLatitude:'',
+      DestinationLongitude:'',
     }
   );
+  const [originLat, setOriginLat] = useState(0);
+  const [originLng, setOriginLng] = useState(0);
+  const [destinationLat, setDestinationLat] = useState(0);
+  const [destinationLng, setDestinationLng] = useState(0);
+  const [pickUpTime, setPickUpTime] = useState('');
+  const [directions, setDirections] = useState(null);
   const driverId = "6432d563ba5f6c81b062c082";
   const count = 0;
-=======
-  const [data, setdata] = useState(
-    {DriverOrderNumber: 'asdasd',
-      DriverId:'6432d563ba5f6c81b062c082',
-      StartingLocation: 'northeastern',
-      Destination: 'aspinwall',
-      Status: 'Open',
-      Seats: 4,
-      Cost: 100
+    /** @type React.MutableRefObject<HTMLInputElement>*/
+    const originRef = useRef();
+    /** @type React.MutableRefObject<HTMLInputElement>*/
+    const destinationRef = useRef();
+    const {isLoaded} = useJsApiLoader({
+      googleMapsApiKey: "AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg" 
+      , libraries: libraries
     }
-  );
-  const driverId = "6432d563ba5f6c81b062c082";
+    )
+    
+    if(!isLoaded) {
+      return <div>loading......</div>;
+    }
 
->>>>>>> 3f8f2d0283a9077c3eab067a927ac8527db458a8
   const CreateRides = async () => {
     try {
       const response = await fetch('http://localhost:9000/riderOrders/');
@@ -50,22 +56,69 @@ const DriverRide = () => {
     CreateRides();
   }, []); */
 
-<<<<<<< HEAD
-  const PostRide = async (e) => {
+
+  const fetchLocationLatLngStartLocation = async (locations) => {
+    const location = locations; // Replace with the location you want to fetch lat/lng for
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: location }, (results, status) => {
+      if (status === 'OK' && results.length > 0) {
+        console.log('hello')
+        const { lat, lng } = results[0].geometry.location;
+        setOriginLat(lat());
+        setOriginLng(lng());
+        console.log(originLat);
+      } else {
+        console.error('Error fetching lat/lng:', status);
+      }
+    });
+  };
+
+  const fetchLocationLatLngDestination = async (locations) => {
+    const location = locations; // Replace with the location you want to fetch lat/lng for
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: location }, (results, status) => {
+      if (status === 'OK' && results.length > 0) {
+        const { lat, lng } = results[0].geometry.location;
+       // console.log('hello')
+        setDestinationLat(lat());
+        setDestinationLng(lng());
+        
+        console.log(destinationLat);
+      } else {
+        console.error('Error fetching lat/lng:', status);
+      }
+    });
+  };
+ 
+  const PostRide = async () => {
+    fetchLocationLatLngStartLocation(originRef.current.value);
+    fetchLocationLatLngDestination(destinationRef.current.value); 
     const newOrderNumber = Math.floor(Math.random() * 1000000000).toString();
-    //setData({ ...data, DriverOrderNumber:  newOrderNumber });
-    
-   
+    setData((prevData) => ({
+      ...prevData,
+      DriverOrderNumber: newOrderNumber,
+      DriverId: driverId,
+      StartingLocation: originRef.current.value,
+      Destination: destinationRef.current.value,
+      OriginLatitude: originLat,
+      OriginLongitude: originLng,
+      DestinationLatitude: destinationLat,
+      DestinationLongitude: destinationLng,
+    }));
+    console.log(destinationLat);
     console.log(data);
-=======
-  const addReminder = async () => {
->>>>>>> 3f8f2d0283a9077c3eab067a927ac8527db458a8
     try {
       const response = await fetch('http://localhost:9000/riderOrders/', { //fetch api with the call back function
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-<<<<<<< HEAD
-        body: JSON.stringify({...data, DriverOrderNumber: newOrderNumber, DriverId: driverId}),
+        body: JSON.stringify({...data,      DriverOrderNumber: newOrderNumber,
+          DriverId: driverId,
+          StartingLocation: originRef.current.value,
+          Destination: destinationRef.current.value,
+          OriginLatitude: originLat,
+          OriginLongitude: originLng,
+          DestinationLatitude: destinationLat,
+          DestinationLongitude: destinationLng,}),
       });
       const responsedata = await response.json();
       console.log(responsedata);
@@ -79,8 +132,14 @@ const DriverRide = () => {
     Destination: '',
     Status: 'Open',
     Seats: '',
-    Cost: ''
+    Cost: '',
+    OriginLatitude:'',
+    OriginLongitude:'',
+    DestinationLatitude:'',
+    DestinationLongitude:'',
   })
+  originRef.current.value = '';
+  destinationRef.current.value = '';
   };
   
   const driverValues = (e) => {
@@ -92,8 +151,13 @@ const DriverRide = () => {
   return (
     <div>
       <h1>Create a Ride Requests</h1>
-      <Input placeholder='StartingLocation' value={data.StartingLocation} name='StartingLocation' onChange={driverValues}/>
-      <Input placeholder='Destination' value={data.Destination} name='Destination' onChange={driverValues}/>
+      <Autocomplete>
+        <input name = 'StartingLocation' /* value={destination} /* onChange={onDestinationChange} */ ref={originRef}/>
+      </Autocomplete>
+      
+      <Autocomplete>
+      <input name = 'Destination' /* value={destination} /* onChange={onDestinationChange} */ ref={destinationRef}/>
+      </Autocomplete>
       <Input placeholder='Seats' value={data.Seats} name='Seats' onChange={driverValues}/>
       <Input placeholder='Cost' value={data.Cost} name='Cost' onChange={driverValues}/>
       <Button
@@ -101,33 +165,6 @@ const DriverRide = () => {
       >
         Create a ride
       </Button>
-=======
-        body: JSON.stringify(data),
-      });
-      const responsedata = await response.json();
-      console.log(responsedata);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-/*   const acceptRequest = (request) => {
-    // Logic for accepting a ride request goes here
-    console.log(`Accepted ride request from ${request.origin} to ${request.destination}`);
-    setRideRequests(rideRequests.filter((r) => r !== request));
-  };
-
-  const rejectRequest = (request) => {
-    // Logic for rejecting a ride request goes here
-    console.log(`Rejected ride request from ${request.origin} to ${request.destination}`);
-    setRideRequests(rideRequests.filter((r) => r !== request));
-  };
-   */
-  return (
-    <div>
-      <h1>Create a Ride Requests</h1>
-      <button onClick={addReminder}>Craete a ride</button>
->>>>>>> 3f8f2d0283a9077c3eab067a927ac8527db458a8
     </div>
   );
 };
