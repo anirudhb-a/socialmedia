@@ -6,6 +6,7 @@ const containerStyle = {
   height: '400px'
 };
 
+//define a center point for Maps to load
 const center = {
   lat: 37.7749,
   lng: -122.4194
@@ -19,6 +20,11 @@ const RiderFinder = () => {
   const [pickUpTime, setPickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
   const [seats, setSeat] = useState('');
+  const [distance, setDistance] = useState('');
+  const [duration, setDuration] = useState('');
+
+  
+
   /** @type React.MutableRefObject<HTMLInputElement>*/
   const originRef = useRef();
   /** @type React.MutableRefObject<HTMLInputElement>*/
@@ -33,6 +39,26 @@ const RiderFinder = () => {
     return <div>loading......</div>;
   }
 
+  async function calculateRoute(){
+    if(originRef.current.value === '' || destinationRef.current.value === ''){
+      return 
+    }
+
+  // eslint-disable-next-line no-undef
+  const directionService = new window.google.maps.DirectionsService();
+  const results = await directionService.route({
+    origin: originRef.current.value,
+    destination: destinationRef.current.value,
+    travelMode: 'DRIVING'
+    
+  })
+  setDirections(results)
+  setDistance(results.routes[0].legs[0].distance.text)
+  setDuration(results.routes[0].legs[0].duration.text)
+  console.log(results);
+      originRef.current.value = '';
+      destinationRef.current.value = '';
+}
 
 /*   const onOriginChange = (event) => {
     setOrigin(origin,[event.target.name] = event.target.value);
@@ -130,6 +156,11 @@ const RiderFinder = () => {
       <button onClick={searchForRide}>Search for ride</button>  <br></br>
 
       <br></br>
+  {/*  <button onClick={calculateRoute}>Calculate Ride :</button>  <br></br>
+ 
+      <p> Distance : {distance} </p>
+    
+      <p> Duration : {duration} </p> */}
 
 
       <div style={containerStyle}>
