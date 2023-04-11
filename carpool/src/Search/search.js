@@ -20,6 +20,9 @@ const RiderFinder = () => {
   const [pickUpTime, setPickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
   const [seats, setSeat] = useState('');
+
+  const [avaiableDriver, setAvaiableDriver] = useState([]);
+
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
 
@@ -88,7 +91,7 @@ const RiderFinder = () => {
   const sendRequestToDriver = async (rider) => {
     // Replace with your own implementation to send the rider information to a driver
     try{
-      const response  = await fetch('http://localhost:9000/riders/',{
+      const response  = await fetch('http://localhost:9000/rider/',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body : JSON.stringify({
@@ -111,9 +114,19 @@ const RiderFinder = () => {
         console.error(error);
       }
     }
-  
-  
 
+    const showNearbyDrivers = async (rider) => {
+      // Replace with your own implementation to send the rider information to a driver
+      try {
+        const response = await fetch('http://localhost:9000/riderOrders/'); //fetch api with the call back function
+        const reminderData = await response.json();
+        setAvaiableDriver(reminderData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    console.log(avaiableDriver.length);
   const searchForRide = () => {
     if (originRef.current.value && destinationRef.current.value && pickUpTime && seats) {
       const directionsService = new window.google.maps.DirectionsService();
@@ -178,7 +191,29 @@ const RiderFinder = () => {
       </div>
       <br></br>
 
-<button onClick={sendRequestToDriver}>Request Driver</button>
+    {
+      <div>
+      <button onClick={showNearbyDrivers}>Request Driver</button>
+      {
+        (!(avaiableDriver.length === 0)) ? (
+          Array.isArray(avaiableDriver) && avaiableDriver.map(c=>(
+            <div>
+              {c.id}
+              {c.StartingLocation}
+              {c.Destination}
+              {c.DriverOrderNumber}
+              {c.DriverPostStatus}
+              
+            </div>
+          )
+
+          )
+
+        ) : null
+      }
+      </div>
+    }
+
     </div>
   );
 }
