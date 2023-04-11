@@ -1,10 +1,11 @@
 
 import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Routes ,Link } from 'react-router-dom';
-import { Button } from 'antd';
+//import { Button } from 'antd';
 import Search from './Search/search.js';
 import Driver from './Driver/Driver.js';
 import DriverRide from './Driver/DriverCreateRide.js';
+import RideMatch from './RideMatch/rideMatch';
 import './App.css';
 
 import ExampleComponent from './example.js';
@@ -16,20 +17,18 @@ function App() {
 
     <Router>
     <div>
-      <Button>
+      
         <Link to='/DriverRide'>Post the Ride for the Commuters</Link>
-      </Button>
       <Link to='/about'>about</Link>
       <Link to='/Home'>Home</Link>
-      <Button>
       <Link to='/Search'>Search Ride</Link>
-      </Button>
     </div>
       <Routes>
         <Route path="/DriverRide" element={<DriverRide />}/>
-        <Route exact path="/Home" element={<HomePage/>} />
+        <Route  path="/Home" element={<HomePage/>} />
         <Route path="/about" element={<AboutPage/>} />
         <Route path="/search" element={<Search/>} />
+        <Route path="/match" element={<RideMatch/>} />
       </Routes>
        </Router> 
        

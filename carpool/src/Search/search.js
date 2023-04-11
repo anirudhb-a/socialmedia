@@ -1,5 +1,7 @@
 import React, { useState ,useRef } from 'react';
 import { useJsApiLoader ,GoogleMap, LoadScript, DirectionsService, DirectionsRenderer,Autocomplete } from '@react-google-maps/api';
+import riderMatch from '../RideMatch/rideMatch.js';
+//import NearestDriver from '../RideMatch/rideMatch';
 
 const containerStyle = {
   width: '100%',
@@ -13,20 +15,27 @@ const center = {
 };
 
 
-
+const libraries = ['places'];
 const RiderFinder = () => {
+  let diplayDrivers = true;
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [pickUpTime, setPickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
   const [seats, setSeat] = useState('');
-
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [location, setLocation] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [avaiableDriver, setAvaiableDriver] = useState([]);
-
+  const [riderLocation, setRiderLocation] = useState([]);
+  const driverLocation = [40.7282, -74.0776];
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
 
-  
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
 
   /** @type React.MutableRefObject<HTMLInputElement>*/
   const originRef = useRef();
@@ -34,7 +43,7 @@ const RiderFinder = () => {
   const destinationRef = useRef();
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: "AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg" 
-    , libraries: ['places']
+    , libraries: libraries
   }
   )
   
@@ -87,8 +96,29 @@ const RiderFinder = () => {
       destinationRef.current.value = '';
     }
   }
+  const handleGeocodeLocation = async () => {
+    
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.status === "OK") {
+        const { lat, lng } = data.results[0].geometry.location;
+        setLatitude(lat);
+        setLongitude(lng);
+        setRiderLocation(lat,lng);
+        riderMatch({riderLocation,driverLocation});
+        //setErrorMessage("");
+      } else {
+        setErrorMessage("Error while requesting geocoding API");
+      }
+    } catch (error) {
+      setErrorMessage("Error while requesting geocoding API");
+    }
+  };
 
   const sendRequestToDriver = async (rider) => {
+   
     // Replace with your own implementation to send the rider information to a driver
     try{
       const response  = await fetch('http://localhost:9000/rider/',{
@@ -114,7 +144,7 @@ const RiderFinder = () => {
         console.error(error);
       }
     }
-
+  
     const showNearbyDrivers = async (rider) => {
       // Replace with your own implementation to send the rider information to a driver
       try {
@@ -128,6 +158,7 @@ const RiderFinder = () => {
   
     console.log(avaiableDriver.length);
   const searchForRide = () => {
+    
     if (originRef.current.value && destinationRef.current.value && pickUpTime && seats) {
       const directionsService = new window.google.maps.DirectionsService();
       directionsService.route(
@@ -140,7 +171,7 @@ const RiderFinder = () => {
       );
     }
   }
-
+  
   return (
     <div>
       <div>
@@ -167,14 +198,25 @@ const RiderFinder = () => {
       <br></br>
       <br></br>
       <button onClick={searchForRide}>Search for ride</button>  <br></br>
-
+{/*       {
+        diplayDrivers ? <NearestDriver Origion = {origin} /> :
+        <div>No Drivers Found please try again later</div>
+      } */}
       <br></br>
-  {/*  <button onClick={calculateRoute}>Calculate Ride :</button>  <br></br>
- 
-      <p> Distance : {distance} </p>
-    
-      <p> Duration : {duration} </p> */}
-
+      <div>
+      <label htmlFor="location-input">Location:</label>
+      <input
+        id="location-input"
+        type="text"
+        value={location}
+        onChange={handleLocationChange}
+      />
+      <button onClick={handleGeocodeLocation}>Geocode</button>
+      {errorMessage && <div>{errorMessage}</div>}
+      {latitude && <div>Latitude: {latitude}</div>}
+      {longitude && <div>Longitude: {longitude}</div>}
+    </div>
+  
 
       <div style={containerStyle}>
 {/*        <LoadScript
@@ -213,7 +255,9 @@ const RiderFinder = () => {
       }
       </div>
     }
-
+{
+  
+}
     </div>
   );
 }

@@ -17,9 +17,6 @@ const Payment = ({ riderInfo }) => {
 
     const data = await response.json();
 
-    
-    
-
     if (data.success) {
       setPaymentComplete(true);
       sendConfirmationEmail();
