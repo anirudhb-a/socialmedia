@@ -1,6 +1,8 @@
-import React, { useState ,useRef } from 'react';
+import React, { useState ,useRef, useEffect } from 'react';
 import { useJsApiLoader ,GoogleMap, LoadScript, DirectionsService, DirectionsRenderer,Autocomplete } from '@react-google-maps/api';
 import riderMatch from '../RideMatch/rideMatch.js';
+import PaymentComp from '../Payment/payment';
+import axios from 'axios';
 //import NearestDriver from '../RideMatch/rideMatch';
 
 const containerStyle = {
@@ -32,10 +34,15 @@ const RiderFinder = () => {
   const driverLocation = [40.7282, -74.0776];
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
+  const [showPayment, setshowPayment] = useState(false);
+
 
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
+
+  
+ 
 
   /** @type React.MutableRefObject<HTMLInputElement>*/
   const originRef = useRef();
@@ -46,6 +53,7 @@ const RiderFinder = () => {
     , libraries: libraries
   }
   )
+
   
   if(!isLoaded) {
     return <div>loading......</div>;
@@ -96,7 +104,7 @@ const RiderFinder = () => {
       destinationRef.current.value = '';
     }
   }
-  const handleGeocodeLocation = async () => {
+  /*const handleGeocodeLocation = async () => {
     
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg`;
     try {
@@ -115,13 +123,13 @@ const RiderFinder = () => {
     } catch (error) {
       setErrorMessage("Error while requesting geocoding API");
     }
-  };
+  };*/
 
-  const sendRequestToDriver = async (rider) => {
+  /*const sendRequestToDriver = async (rider) => {
    
     // Replace with your own implementation to send the rider information to a driver
     try{
-      const response  = await fetch('http://localhost:9000/rider/',{
+      const response  = await fetch('http://localhost:9000/riders/',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body : JSON.stringify({
@@ -143,22 +151,30 @@ const RiderFinder = () => {
       catch (error) {
         console.error(error);
       }
-    }
-  
+    }*/
+   
     const showNearbyDrivers = async (rider) => {
       // Replace with your own implementation to send the rider information to a driver
       try {
         const response = await fetch('http://localhost:9000/riderOrders/'); //fetch api with the call back function
+        //SET_THIS_WHEN_DRIVER_ACCEPTS_THE_RIDE
+        //setshowPayment(true);
         const reminderData = await response.json();
         setAvaiableDriver(reminderData);
+
+        //LOGIC TO LOAD PAYMENT COMP
+        //reminderData[0].rideStatus ? setshowPayment(true) : console.log("RIDE NOT CONFIRMED YET");
+
+        console.log(reminderData);
       } catch (error) {
+      
         console.error(error);
       }
     }
   
     console.log(avaiableDriver.length);
   const searchForRide = () => {
-    
+   
     if (originRef.current.value && destinationRef.current.value && pickUpTime && seats) {
       const directionsService = new window.google.maps.DirectionsService();
       directionsService.route(
@@ -198,24 +214,15 @@ const RiderFinder = () => {
       <br></br>
       <br></br>
       <button onClick={searchForRide}>Search for ride</button>  <br></br>
+      <br></br>
+      
+
 {/*       {
         diplayDrivers ? <NearestDriver Origion = {origin} /> :
         <div>No Drivers Found please try again later</div>
       } */}
       <br></br>
-      <div>
-      <label htmlFor="location-input">Location:</label>
-      <input
-        id="location-input"
-        type="text"
-        value={location}
-        onChange={handleLocationChange}
-      />
-      <button onClick={handleGeocodeLocation}>Geocode</button>
-      {errorMessage && <div>{errorMessage}</div>}
-      {latitude && <div>Latitude: {latitude}</div>}
-      {longitude && <div>Longitude: {longitude}</div>}
-    </div>
+    
   
 
       <div style={containerStyle}>
@@ -248,13 +255,24 @@ const RiderFinder = () => {
               
             </div>
           )
+          
 
           )
 
         ) : null
       }
+      
       </div>
+      
     }
+    <br></br>
+    <div>
+    <div>
+    
+      {showPayment ? <PaymentComp /> : console.log("RIDE CONFIRMING........") }
+    </div>
+    </div>
+    <br></br>
 {
   
 }

@@ -29,6 +29,7 @@ function App() {
         <Route path="/about" element={<AboutPage/>} />
         <Route path="/search" element={<Search/>} />
         <Route path="/match" element={<RideMatch/>} />
+        
       </Routes>
        </Router> 
        
