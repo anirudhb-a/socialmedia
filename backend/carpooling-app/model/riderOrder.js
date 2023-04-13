@@ -15,15 +15,15 @@ const riderOrderSchema = new mongoose.Schema({
     },
     DriverId: {
         type: String,
-        required: 'Starting Location is required.'
+       // required: 'Starting Location is required.'
     },
     StartingLocation: {
         type: String,
-        required: 'Starting Location is required.'
+       // required: 'Starting Location is required.'
     },
     Destination: {
         type: String,
-        required: 'Destination is required.'
+        //required: 'Destination is required.'
     },
     PickUpTime: {
         type: Date,
@@ -39,8 +39,25 @@ const riderOrderSchema = new mongoose.Schema({
     },
     Cost:{
         type: Number,
-        required: 'Number of Seats is required.'
+       // required: 'Number of Seats is required.'
+    },
+    OriginLatitude:{
+        type: String,
+        //required: 'Number of Seats is required.'
+    },
+    OriginLongitude:{
+        type: String,
+       // required: 'Number of Seats is required.'
+    },
+    DestinationLatitude:{
+        type: String,
+        //required: 'Number of Seats is required.'
+    },
+    DestinationLongitude:{
+        type: String,
+       // required: 'Number of Seats is required.'
     }
+
 
 }, 
 
