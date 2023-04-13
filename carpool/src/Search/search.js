@@ -25,6 +25,7 @@ const RiderFinder = () => {
   const [pickUpTime, setPickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
   const [seats, setSeat] = useState('');
+
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [location, setLocation] = useState("");
@@ -43,7 +44,7 @@ const RiderFinder = () => {
 
   
  
-
+b22e113bef19674fa92b28e2b062596ffebbd95b
   /** @type React.MutableRefObject<HTMLInputElement>*/
   const originRef = useRef();
   /** @type React.MutableRefObject<HTMLInputElement>*/
