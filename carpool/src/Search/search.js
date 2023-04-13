@@ -42,9 +42,7 @@ const RiderFinder = () => {
     setLocation(event.target.value);
   };
 
-  
- 
-b22e113bef19674fa92b28e2b062596ffebbd95b
+
   /** @type React.MutableRefObject<HTMLInputElement>*/
   const originRef = useRef();
   /** @type React.MutableRefObject<HTMLInputElement>*/
