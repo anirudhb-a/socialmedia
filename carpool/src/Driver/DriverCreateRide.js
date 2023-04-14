@@ -1,5 +1,5 @@
 import React, { useState,useEffect , useRef } from 'react';
-import { Button , Input } from 'antd';
+//import { Button , Input } from 'antd';
 import { useJsApiLoader ,GoogleMap, LoadScript, DirectionsService, DirectionsRenderer,Autocomplete } from '@react-google-maps/api';
 
 
@@ -10,7 +10,7 @@ const DriverRide = () => {
       DriverId:'',
       StartingLocation: '',
       Destination: '',
-      Status: 'Open',
+      DriverPostStatus: 'Open',
       Seats: '',
       Cost: '',
       OriginLatitude:'',
@@ -26,6 +26,7 @@ const DriverRide = () => {
   const [pickUpTime, setPickUpTime] = useState('');
   const [directions, setDirections] = useState(null);
   const driverId = "6432d563ba5f6c81b062c082";
+  const [errorMessage, setErrorMessage] = useState("");
   const count = 0;
     /** @type React.MutableRefObject<HTMLInputElement>*/
     const originRef = useRef();
@@ -57,7 +58,7 @@ const DriverRide = () => {
   }, []); */
 
 
-  const fetchLocationLatLngStartLocation = async (locations) => {
+/*   const fetchLocationLatLngStartLocation = async (locations) => {
     const location = locations; // Replace with the location you want to fetch lat/lng for
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ address: location }, (results, status) => {
@@ -72,8 +73,28 @@ const DriverRide = () => {
       }
     });
   };
+ */
+  const handleGeocodeLocation = async (location) => {
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyBaE0BFCbpDBdN5NkUK2DA-2Jm7IRnoGZg`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.status === "OK") {
+        const { lat, lng } = data.results[0].geometry.location;
+        const locationObject = ({latProp:lat,lngProp:lng});
+        //console.log(locationObject.latProp)
+        return locationObject;
+        
+      } else {
+        setErrorMessage("Error while requesting geocoding API");
+      }
+    } catch (error) {
+      setErrorMessage("Error while requesting geocoding API");
+    }
+  };
 
-  const fetchLocationLatLngDestination = async (locations) => {
+
+/*   const fetchLocationLatLngDestination = async (locations) => {
     const location = locations; // Replace with the location you want to fetch lat/lng for
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ address: location }, (results, status) => {
@@ -88,37 +109,26 @@ const DriverRide = () => {
         console.error('Error fetching lat/lng:', status);
       }
     });
-  };
+  }; */
  
   const PostRide = async () => {
-    fetchLocationLatLngStartLocation(originRef.current.value);
-    fetchLocationLatLngDestination(destinationRef.current.value); 
+    const origin =  await handleGeocodeLocation(originRef.current.value);
+    const destination = await handleGeocodeLocation(destinationRef.current.value);
     const newOrderNumber = Math.floor(Math.random() * 1000000000).toString();
-    setData((prevData) => ({
-      ...prevData,
-      DriverOrderNumber: newOrderNumber,
-      DriverId: driverId,
-      StartingLocation: originRef.current.value,
-      Destination: destinationRef.current.value,
-      OriginLatitude: originLat,
-      OriginLongitude: originLng,
-      DestinationLatitude: destinationLat,
-      DestinationLongitude: destinationLng,
-    }));
-    console.log(destinationLat);
-    console.log(data);
+    console.log(data)
     try {
       const response = await fetch('http://localhost:9000/riderOrders/', { //fetch api with the call back function
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({...data,      DriverOrderNumber: newOrderNumber,
+        body: JSON.stringify({...data, DriverOrderNumber: newOrderNumber,
           DriverId: driverId,
           StartingLocation: originRef.current.value,
           Destination: destinationRef.current.value,
-          OriginLatitude: originLat,
-          OriginLongitude: originLng,
-          DestinationLatitude: destinationLat,
-          DestinationLongitude: destinationLng,}),
+          OriginLatitude: origin.latProp,
+          OriginLongitude: origin.lngProp,
+          DestinationLatitude: destination.latProp,
+          DestinationLongitude: destination.lngProp,
+          Status:"Open"}),
       });
       const responsedata = await response.json();
       console.log(responsedata);
@@ -147,7 +157,7 @@ const DriverRide = () => {
     setData({ ...data, [e.target.name]: e.target.value });
     
 };  
-
+  
   return (
     <div>
       <h1>Create a Ride Requests</h1>
@@ -158,13 +168,13 @@ const DriverRide = () => {
       <Autocomplete>
       <input name = 'Destination' /* value={destination} /* onChange={onDestinationChange} */ ref={destinationRef}/>
       </Autocomplete>
-      <Input placeholder='Seats' value={data.Seats} name='Seats' onChange={driverValues}/>
-      <Input placeholder='Cost' value={data.Cost} name='Cost' onChange={driverValues}/>
-      <Button
+      <input placeholder='Seats' value={data.Seats} name='Seats' onChange={driverValues}/>
+      <input placeholder='Cost' value={data.Cost} name='Cost' onChange={driverValues}/>
+      <button
       onClick={PostRide}
       >
         Create a ride
-      </Button>
+      </button>
     </div>
   );
 };
