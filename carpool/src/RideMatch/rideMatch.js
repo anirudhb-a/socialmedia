@@ -47,4 +47,3 @@ console.log("INSIDE RIDE MATCH COMPONENT");
 };
 
 export default NearestDriver;
-
