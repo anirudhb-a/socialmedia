@@ -15,7 +15,7 @@ carpooling.use(express.urlencoded());
 route(carpooling);
 
 //connecting to mongodb
-mongoose.connect("mongodb://127.0.0.1/test");
+mongoose.connect("mongodb+srv://nihil27051:Assasinscreed2@cluster0.onicods.mongodb.net/test");
 
 export default carpooling;
 

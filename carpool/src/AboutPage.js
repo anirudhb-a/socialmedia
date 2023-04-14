@@ -1,11 +1,10 @@
 // src/components/AboutPage.js
 import React from 'react';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
-=======
+
+
 //import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes ,Link } from 'react-router-dom';
->>>>>>> 3f8f2d0283a9077c3eab067a927ac8527db458a8
+
 
 const AboutPage = () => {
   return (
