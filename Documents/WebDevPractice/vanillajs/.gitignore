@@ -1,0 +1,12 @@
+# Accidental sketch file upload
+*.sketch
+
+# Avoid accidental xd or figma upload
+*.xd
+*.fig
+
+# Avoid DS Files
+.DS_Store
+
+node_modules/
+
